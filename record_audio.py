@@ -3,7 +3,6 @@ import sounddevice as sd
 from transformers import pipeline
 import time
 
-# --- Config ---
 MODEL_NAME = "distil-whisper/distil-large-v2"
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 TORCH_DTYPE = torch.float16 if torch.cuda.is_available() else torch.float32
@@ -21,7 +20,7 @@ def record_audio():
         int(DURATION_SECONDS * SAMPLE_RATE),
         samplerate=SAMPLE_RATE,
         channels=1,
-        dtype="float32"   # pipeline expects float32
+        dtype="float32"  
     )
     sd.wait()
     print("Recording finished.")

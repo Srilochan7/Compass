@@ -5,3 +5,5 @@ transformers
 sounddevice
 scipy
 numpy
+peft
+bitsandbytes

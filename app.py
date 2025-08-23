@@ -1,14 +1,20 @@
 import streamlit as st
 from record_audio import record_and_transcribe
-import time
 
-st.set_page_config(page_title="Compass - AI Health Assistant", page_icon="🧭", layout="centered")
+from llm_service import get_llm_advice, load_llm
 
-st.title("Compass 🧭")
+st.set_page_config(page_title="Rakshak", layout="centered")
+
+st.title("Rakshak")
 st.subheader("Your AI Health Assistant")
 st.write("Describe your symptoms using text or your microphone to get a preliminary suggestion. This is a demo and not real medical advice.")
 
 st.markdown("---")
+@st.cache_resource
+def get_model():
+    return load_llm()
+model, tokenizer = get_model()
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
