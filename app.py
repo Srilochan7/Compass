@@ -1,6 +1,9 @@
 import streamlit as st
 from record_audio import record_and_transcribe
 
+import torch
+st.write(f"Using GPU (CUDA): {torch.cuda.is_available()}")
+
 from llm_service import get_llm_advice, load_llm
 
 st.set_page_config(page_title="Rakshak", layout="centered")
@@ -33,8 +36,8 @@ if mode == "Text":
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
-            with st.spinner("Compass is thinking..."):
-                ai_response = get_llm_advice(prompt)
+            with st.spinner("Rakshak is thinking..."):
+                ai_response = get_llm_advice(model, tokenizer, prompt)
                 message_placeholder.markdown(ai_response)
         
         st.session_state.messages.append({"role": "assistant", "content": ai_response})
@@ -52,7 +55,7 @@ elif mode == "Voice":
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
-            with st.spinner("Compass is thinking..."):
+            with st.spinner("Rakshak is thinking..."):
                 ai_response = get_llm_advice(transcribed_text)
                 message_placeholder.markdown(ai_response)
 
